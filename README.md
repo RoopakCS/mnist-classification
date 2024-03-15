@@ -35,7 +35,7 @@ Compile and fit the model and then predict
 
 ### Name: Roopak C S
 ### Register Number: 212223220088
-## Importing Modules:
+## Importing Modules
 ```python
 import numpy as np
 from tensorflow import keras
@@ -50,28 +50,77 @@ import pandas as pd
 from sklearn.metrics import classification_report,confusion_matrix
 from tensorflow.keras.preprocessing import image
 ```
+## Loading the MNIST dataset
 ```python
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
+```
+## To view the dimensions of the training and testing dataset
+```python
 X_train.shape
 X_test.shape
+```
+## Extracting the first image from the training dataset
+```python
 single_image= X_train[0]
+```
+## To view the dimensions of the first image from the training dataset
+```python
 single_image.shape
+```
+## To visualize the single image 
+```python
 plt.imshow(single_image,cmap='gray')
+```
+## To view the dimensions of the labels associated with the training dataset
+```python
 y_train.shape
+```
+## To find the minimum and maximum pixel value in the entire training dataset
+```python
 X_train.min()
 X_train.max()
+```
+## Scaling the pixel values of the images in the MNIST dataset
+```python
 X_train_scaled = X_train/255.0
 X_test_scaled = X_test/255.0
+```
+## To find the minimum and maximum pixel value in the entire training dataset
+```python
 X_train_scaled.min()
 X_train_scaled.max()
+```
+## Extracting the first image from the training dataset
+```python
 y_train[0]
+```
+## Using one-hot encoding to convert the target labels into categorical variables
+```python
 y_train_onehot = utils.to_categorical(y_train,10)
 y_test_onehot = utils.to_categorical(y_test,10)
+```
+## To determine the type of "y_train_onehot"
+```python
 type(y_train_onehot)
+```
+##  To view the dimensions of the array
+```python
 y_train_onehot.shape
+```
+## Extracting a single image at index 500 from the training dataset
+```python
 single_image = X_train[500]
+```
+## To display the image stored in the variable single_image
+```python
 plt.imshow(single_image,cmap='gray')
+```
+## Acessing the one-hot encoded representation of the label for the 500th sample in the training dataset
+```python
 y_train_onehot[500]
+```
+## Reshaping your training and test data arrays 
+```python
 X_train_scaled = X_train_scaled.reshape(-1,28,28,1)
 X_test_scaled = X_test_scaled.reshape(-1,28,28,1)
 ```
@@ -84,6 +133,9 @@ model.add(layers.MaxPool2D(pool_size=(2,2)))
 model.add(layers.Flatten())
 model.add(layers.Dense(32,activation='relu'))
 model.add(layers.Dense(10,activation='softmax'))
+```
+## To display the summary of the neural network model
+```python
 model.summary()
 ```
 ## Choosing the appropriate parameters
@@ -91,19 +143,40 @@ model.summary()
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics='accuracy')
+```
+## Fitting the model
+```python
 model.fit(X_train_scaled ,y_train_onehot, epochs=5,
           batch_size=64,
           validation_data=(X_test_scaled,y_test_onehot))
+```
+## Creating a pandas DataFrame from the training history of the neural network model
+```python
 metrics = pd.DataFrame(model.history.history)
+```
+## To display the first five rows of the DataFrame
+```
 metrics.head()
+```
+## To visualize the training and validation accuracy
+```python
 metrics[['accuracy','val_accuracy']].plot()
+```
+## To visualize the training and validation loss 
+```python
 metrics[['loss','val_loss']].plot()
+```
+## To calculate the predictions on the test set using your trained neural network model
+```python
 x_test_predictions = np.argmax(model.predict(X_test_scaled), axis=1)
+```
+## To print the confusion matrix
+```python
 print(confusion_matrix(y_test,x_test_predictions))
 print(classification_report(y_test,x_test_predictions))
-**Prediction for a single input**
-
-
+```
+##Prediction for a single input
+```python
 img = image.load_img('minst.png')
 type(img)
 img = image.load_img('minst.png')
