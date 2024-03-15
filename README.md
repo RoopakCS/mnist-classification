@@ -17,7 +17,7 @@ It is a widely used and deeply understood dataset and, for the most part, is “
 
 ## Neural Network Model
 
-Include the neural network model diagram.
+![image](https://github.com/RoopakCS/mnist-classification/assets/139228922/3d1189ef-7b7c-4c9e-908c-0a1fc579fb59)
 
 ## DESIGN STEPS
 
@@ -35,6 +35,7 @@ Compile and fit the model and then predict
 
 ### Name: Roopak C S
 ### Register Number: 212223220088
+## Importing Modules:
 ```python
 import numpy as np
 from tensorflow import keras
@@ -48,7 +49,8 @@ from tensorflow.keras import utils
 import pandas as pd
 from sklearn.metrics import classification_report,confusion_matrix
 from tensorflow.keras.preprocessing import image
-
+```
+```python
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 X_train.shape
 X_test.shape
@@ -72,6 +74,9 @@ plt.imshow(single_image,cmap='gray')
 y_train_onehot[500]
 X_train_scaled = X_train_scaled.reshape(-1,28,28,1)
 X_test_scaled = X_test_scaled.reshape(-1,28,28,1)
+```
+## Creating the model:
+```python
 model = Sequential()
 model.add(layers.Input(shape=(28,28,1)))
 model.add(layers.Conv2D(filters=32, kernel_size=(3,3), activation='relu'))
@@ -80,7 +85,9 @@ model.add(layers.Flatten())
 model.add(layers.Dense(32,activation='relu'))
 model.add(layers.Dense(10,activation='softmax'))
 model.summary()
-# Choose the appropriate parameters
+```
+## Choosing the appropriate parameters
+```python
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics='accuracy')
