@@ -175,7 +175,7 @@ x_test_predictions = np.argmax(model.predict(X_test_scaled), axis=1)
 print(confusion_matrix(y_test,x_test_predictions))
 print(classification_report(y_test,x_test_predictions))
 ```
-##Prediction for a single input
+## Prediction for a single input
 ```python
 img = image.load_img('minst.png')
 type(img)
